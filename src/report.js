@@ -44,14 +44,14 @@ function generateHtmlHead() {
 }
 
 function generateFeatureRow(featureDescription, reportIds) {
-    let html = `<tr class="feature-row"><td>${featureDescription}</td>`;
-    reportIds.forEach(reportId => html += `<td>${reportId}</td>`);
+    let html = `<tr class="feature-row"><td class="feature-description">${featureDescription}</td>`;
+    reportIds.forEach(reportId => html += `<td class="report-id">${reportId}</td>`);
     html += '</tr>'
     return html;
 }
 
 function generateScenarioRow(scenarioEntry, reportIds) {
-    let html = `<tr class="scenario-row"><td>${scenarioEntry.name}</td>`
+    let html = `<tr class="scenario-row"><td class="scenario-description">${scenarioEntry.name}</td>`
     reportIds.forEach(reportId => {
         const run = scenarioEntry.runs[reportId];
         if (!run) {
