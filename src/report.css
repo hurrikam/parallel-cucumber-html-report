@@ -1,0 +1,52 @@
+tr td {
+    padding: 10pt;
+}
+
+tr.feature-row {
+    font-weight: bold;
+    font-size: 16pt;
+}
+
+tr.scenario-row {
+    font-size: 14pt;
+    max-width: 400px;
+}
+
+tr.scenario-row:nth-child(even) {
+    background-color: white;
+}
+
+tr.scenario-row:nth-child(odd) {
+    background-color: lightblue;
+}
+
+td.scenario-status {
+    text-align: center;
+}
+
+.scenario-status-failed {
+    color: red;
+}
+
+.scenario-status-passed {
+    color: green;
+}
+
+td.scenario-status-failed {
+    font-size: 24pt;    
+}
+
+td.scenario-status-passed {
+    font-size: 20pt;    
+}
+
+td .tooltiptext {
+    background-color: azure;
+    border: solid 1px black;
+    font-size: 12pt;
+}
+
+.step-error {
+    margin-left: 20px;
+    font-size: 10pt;
+}

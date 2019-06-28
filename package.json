@@ -1,0 +1,17 @@
+{
+  "name": "parallel-cucumber-html-report",
+  "version": "1.0.0",
+  "description": "Merges multiple Cucumber JSON results file into a single HTML. Features and scenarios are organised into a table, allowing to easily compare runs of the same scenario from the different input files.",
+  "main": "report.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hurrikam/parallel-cucumber-html-report.git"
+  },
+  "keywords": [],
+  "author": "Diego Di Mauro",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/hurrikam/parallel-cucumber-html-report/issues"
+  },
+  "homepage": "https://github.com/hurrikam/parallel-cucumber-html-report#readme"
+}
