@@ -131,6 +131,15 @@ function mergeJsonFiles(folderPath) {
         });
 }
 
-mergeJsonFiles('./results');
+const resultsFolder = process.argv[2];
+if (!resultsFolder) {
+    throw new Error('No results folder specified');
+}
+const outputFile = process.argv[3];
+if (!outputFile) {
+    throw new Error('No output file specified');
+}
+
+mergeJsonFiles(resultsFolder);
 const html = generateHtml(scenarioMap);
-writeFileSync('./results/report.html', html);
+writeFileSync(outputFile, html);
