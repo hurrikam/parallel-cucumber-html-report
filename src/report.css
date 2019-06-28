@@ -1,15 +1,24 @@
 tr td {
-    padding: 10pt;
+    padding: 2pt;
 }
 
 tr.feature-row {
     font-weight: bold;
-    font-size: 16pt;
+    font-size: 16pt;    
+}
+
+tr.feature-row>td {
+    padding-top: 40px;
 }
 
 tr.scenario-row {
     font-size: 14pt;
     max-width: 400px;
+}
+
+tr.scenario-row>td:nth-child(1) {
+    padding-left: 20px;
+    max-width: 200px;
 }
 
 tr.scenario-row:nth-child(even) {
