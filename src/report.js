@@ -30,11 +30,15 @@ function mergeScenarios(reportId, features) {
     });
 }
 
+function readCssFile(fileName) {
+    return readFileSync(path.join(__dirname, fileName), { encoding: 'utf8' })
+}
+
 function generateHtmlHead() {
     return `
         <head>
-            <style>${readFileSync('./report.css', { encoding: 'utf8' })}</style>
-            <style>${readFileSync('./tooltip.css', { encoding: 'utf8' })}</style>
+            <style>${readCssFile('report.css')}</style>
+            <style>${readCssFile('tooltip.css')}</style>
         </head>
     `;
 }
