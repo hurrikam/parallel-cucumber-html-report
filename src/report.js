@@ -4,30 +4,46 @@ const { readdirSync, readFileSync, writeFileSync } = require('fs');
 const path = require('path');
 
 const reportIds = [];
-const scenarioMap = {};
+const featureMap = {};
 
 function readFeaturesFromJsonFile(path) {
     const featuresJson = readFileSync(path, { encoding: 'utf8' });
     return JSON.parse(featuresJson);
 }
 
-function mergeScenarios(reportId, features) {
+function mergeFeatures(reportId, features) {
     features.forEach(feature => {
         const featureId = feature.uri;
+        const featureEntry = createFeatureMapEntry(featureId, feature.description);
+        const scenarioMap = featureEntry.scenarioMap;
         feature.elements.forEach(scenario => {
-            const scenarioId = `${featureId}+${scenario.id}+line:${scenario.line}`;
-            let scenarioEntry = scenarioMap[scenarioId];
-            if (!scenarioEntry) {
-                scenarioEntry = scenarioMap[scenarioId] = {
-                    featureId,
-                    featureDescription: feature.description,
-                    name: scenario.name,
-                    runs: {}
-                };
-            }
+            const scenarioEntry = createScenarioMapEntry(scenario, scenarioMap);
             scenarioEntry.runs[reportId] = scenario;
         });
     });
+}
+
+function createFeatureMapEntry(featureId, description) {
+    const featureEntry = featureMap[featureId];
+    if (featureEntry) {
+        return featureEntry;
+    }
+    return featureMap[featureId] = {
+        description,
+        scenarioMap: {}
+    };
+}
+
+function createScenarioMapEntry(scenario, scenarioMap) {
+    const scenarioId = `${scenario.id}+line:${scenario.line}`;
+    const scenarioEntry = scenarioMap[scenarioId];
+    if (scenarioEntry) {
+        return scenarioEntry;
+    }
+    return scenarioMap[scenarioId] = {
+        name: scenario.name,
+        runs: {}
+    };
 }
 
 function readCssFile(fileName) {
@@ -104,20 +120,18 @@ function generateScenarioStepList(scenarioRun) {
     return html;
 }
 
-function generateHtml(scenarioMap) {
+function generateHtml() {
     let html = `<html>${generateHtmlHead()}<body><table>`;
-    let lastFeatureId;
-    const scenarioIds = Object.keys(scenarioMap);
-    scenarioIds
-        .forEach(scenarioId => {
-            const scenarioEntry = scenarioMap[scenarioId];
-            const featureId = scenarioEntry.featureId;
-            const startFeatureGroup = featureId != lastFeatureId;
-            if (startFeatureGroup) {
-                html += generateFeatureRow(scenarioEntry.featureDescription, reportIds);
-                lastFeatureId = featureId;
-            }
-            html += generateScenarioRow(scenarioEntry, reportIds);
+    Object.keys(featureMap)
+        .forEach(featureId => {
+            const featureEntry = featureMap[featureId];
+            html += generateFeatureRow(featureEntry.description, reportIds);
+            const scenarioMap = featureEntry.scenarioMap;
+            Object.keys(scenarioMap)
+                .forEach(scenarioId => {
+                    const scenarioEntry = scenarioMap[scenarioId];
+                    html += generateScenarioRow(scenarioEntry, reportIds);
+                });
         });
     html += '</table></body>';
     return html;
@@ -131,7 +145,7 @@ function mergeJsonFiles(folderPath) {
             const reportId = path.basename(filePath, '.json');
             reportIds.push(reportId);
             const features = readFeaturesFromJsonFile(joinedPath);
-            mergeScenarios(reportId, features);
+            mergeFeatures(reportId, features);
         });
 }
 
@@ -145,5 +159,5 @@ if (!outputFile) {
 }
 
 mergeJsonFiles(resultsFolder);
-const html = generateHtml(scenarioMap);
+const html = generateHtml(featureMap);
 writeFileSync(outputFile, html);
