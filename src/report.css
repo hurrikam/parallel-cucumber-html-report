@@ -1,14 +1,15 @@
+tr th {
+    background-color: whitesmoke;
+    padding: 40px 5px 20px 5px;
+}
+
 tr td {
-    padding: 2pt;
+    padding: 2px;
 }
 
 tr.feature-row {
     font-weight: bold;
     font-size: 16pt;    
-}
-
-td.feature-description {
-    padding-top: 40px;
 }
 
 td.report-id {

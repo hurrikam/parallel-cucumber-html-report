@@ -60,8 +60,8 @@ function generateHtmlHead() {
 }
 
 function generateFeatureRow(featureDescription, reportIds) {
-    let html = `<tr class="feature-row"><td class="feature-description">${featureDescription}</td>`;
-    reportIds.forEach(reportId => html += `<td class="report-id">${reportId}</td>`);
+    let html = `<tr class="feature-row"><th class="feature-description">${featureDescription}</th>`;
+    reportIds.forEach(reportId => html += `<th class="report-id">${reportId}</th>`);
     html += '</tr>'
     return html;
 }

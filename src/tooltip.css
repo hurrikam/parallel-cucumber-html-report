@@ -1,36 +1,29 @@
 /* Source: https://www.w3schools.com/howto/howto_css_tooltip.asp */
 
-/* Tooltip container */
-.tooltip {
-    position: relative;
-    display: inline-block;
-    border-bottom: 1px dotted black; /* If you want dots under the hoverable text */
-  }
-  
-  /* Tooltip text */
-  .tooltip .tooltiptext {
-    visibility: hidden;
-    max-width: 600px;
-    text-align: center;
-    padding: 5px;
-    border-radius: 6px;
-  
-    /* Position the tooltip text */
-    position: fixed;
-    z-index: 1;
-    top: 20px;
-    left: 20px;
-    right: auto;
-    bottom: auto;
-    margin: auto;
-  
-    /* Fade in tooltip */
-    opacity: 0;
-    transition: opacity 0.3s;
-  }
-  
-  /* Show the tooltip text when you mouse over the tooltip container */
-  .tooltip:hover .tooltiptext {
-    visibility: visible;
-    opacity: 1;
-  }
+/* Tooltip text */
+.tooltip .tooltiptext {
+  visibility: hidden;
+  max-width: 600px;
+  text-align: center;
+  padding: 5px;
+  border-radius: 6px;
+
+  /* Position the tooltip text */
+  position: fixed;
+  z-index: 1;
+  top: 20px;
+  left: 20px;
+  right: auto;
+  bottom: auto;
+  margin: auto;
+
+  /* Fade in tooltip */
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+/* Show the tooltip text when you mouse over the tooltip container */
+.tooltip:hover .tooltiptext {
+  visibility: visible;
+  opacity: 1;
+}
