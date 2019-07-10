@@ -9,7 +9,12 @@ tr td {
 
 tr.feature-row {
     font-weight: bold;
-    font-size: 16pt;    
+    font-size: 16pt;
+}
+
+th .feature-description {
+    font-size: 11pt;
+    margin-top: 10px;
 }
 
 td.report-id {

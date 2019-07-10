@@ -14,7 +14,7 @@ function readFeaturesFromJsonFile(path) {
 function mergeFeatures(reportId, features) {
     features.forEach(feature => {
         const featureId = feature.uri;
-        const featureEntry = createFeatureMapEntry(featureId, feature.description);
+        const featureEntry = createFeatureMapEntry(featureId, feature);
         const scenarioMap = featureEntry.scenarioMap;
         feature.elements.forEach(scenario => {
             const scenarioEntry = createScenarioMapEntry(scenario, scenarioMap);
@@ -23,13 +23,14 @@ function mergeFeatures(reportId, features) {
     });
 }
 
-function createFeatureMapEntry(featureId, description) {
+function createFeatureMapEntry(featureId, feature) {
     const featureEntry = featureMap[featureId];
     if (featureEntry) {
         return featureEntry;
     }
     return featureMap[featureId] = {
-        description,
+        description: feature.description,
+        name: feature.name,
         scenarioMap: {}
     };
 }
@@ -59,8 +60,12 @@ function generateHtmlHead() {
     `;
 }
 
-function generateFeatureRow(featureDescription, reportIds) {
-    let html = `<tr class="feature-row"><th class="feature-description">${featureDescription}</th>`;
+function generateFeatureRow(featureEntry, reportIds) {
+    let html = `<tr class="feature-row"><th>${featureEntry.name}`;
+    if (featureEntry.description) {
+        html += `<div class="feature-description">${featureEntry.description}</div>`;
+    }
+    html += '</th>';
     reportIds.forEach(reportId => html += `<th class="report-id">${reportId}</th>`);
     html += '</tr>'
     return html;
@@ -125,7 +130,7 @@ function generateHtml() {
     Object.keys(featureMap)
         .forEach(featureId => {
             const featureEntry = featureMap[featureId];
-            html += generateFeatureRow(featureEntry.description, reportIds);
+            html += generateFeatureRow(featureEntry, reportIds);
             const scenarioMap = featureEntry.scenarioMap;
             Object.keys(scenarioMap)
                 .forEach(scenarioId => {
