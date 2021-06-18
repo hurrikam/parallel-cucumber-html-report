@@ -1,42 +1,36 @@
-tr th {
+th {
     background-color: whitesmoke;
+    font-size: 14px;
     padding: 40px 5px 20px 5px;
 }
 
-tr td {
-    padding: 2px;
-}
-
-tr.feature-row {
-    font-weight: bold;
-    font-size: 16pt;
+th:first-child {
+    font-size: 22px;
+    /* min-width: 400px; */
+    /* white-space: nowrap; */
 }
 
 th .feature-description {
-    font-size: 11pt;
+    font-size: 16px;
     margin-top: 10px;
 }
 
-td.report-id {
-    text-align: center;
+td {
+    font-size: 16px;
+    padding: 4px;
 }
 
-tr.scenario-row {
-    font-size: 14pt;
-    max-width: 400px;
+td:first-child {
+    min-width: 400px;
+    padding-left: 10px;
 }
 
-tr.scenario-row:nth-child(even) {
+tr:nth-child(even) {
     background-color: white;
 }
 
-tr.scenario-row:nth-child(odd) {
+tr:nth-child(odd) {
     background-color: lightblue;
-}
-
-td.scenario-description {
-    padding-left: 20px;
-    max-width: 200px;
 }
 
 td.scenario-status {

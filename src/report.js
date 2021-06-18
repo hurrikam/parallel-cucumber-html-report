@@ -61,18 +61,18 @@ function generateHtmlHead() {
 }
 
 function generateFeatureRow(featureEntry, reportIds) {
-    let html = `<tr class="feature-row"><th>${featureEntry.name}`;
+    let html = `<tr><th>${featureEntry.name}`;
     if (featureEntry.description) {
         html += `<div class="feature-description">${featureEntry.description}</div>`;
     }
     html += '</th>';
-    reportIds.forEach(reportId => html += `<th class="report-id">${reportId}</th>`);
+    reportIds.forEach(reportId => html += `<th>${reportId}</th>`);
     html += '</tr>'
     return html;
 }
 
 function generateScenarioRow(scenarioEntry, reportIds) {
-    let html = `<tr class="scenario-row"><td class="scenario-description">${scenarioEntry.name}</td>`
+    let html = `<tr><td>${scenarioEntry.name}</td>`
     reportIds.forEach(reportId => {
         const run = scenarioEntry.runs[reportId];
         if (!run) {
@@ -128,6 +128,7 @@ function generateScenarioStepList(scenarioRun) {
 function generateHtml() {
     let html = `<html>${generateHtmlHead()}<body><table>`;
     Object.keys(featureMap)
+        .sort()
         .forEach(featureId => {
             const featureEntry = featureMap[featureId];
             html += generateFeatureRow(featureEntry, reportIds);
